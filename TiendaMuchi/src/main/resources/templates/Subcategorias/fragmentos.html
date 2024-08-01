@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Exp</title>
+    </head>
+    <body>
+        <section th:fragment="listadoSubCategorias" id="subcategorias">
+            <div class="">
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h1>Subcategorías</h1>
+                        </div>
+                        <div class="col-lg-2 mr-0">
+                            <button 
+                                type="button" 
+                                class="btn btn-primary w-100 text-nowrap" data-bs-toggle="modal" 
+                                data-bs-target="#agregarSubCategoria"> 
+                                <i class="fas fa-plus"></i> Agregar subcategoría
+                            </button>
+                        </div>
+                        <p th:if="${totalSubCategorias == 0}">
+                            No hay subcategorías para mostrar
+                        </p>
+                        <div th:each="item : ${SubCategorias}" class="col-lg-12 mb-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="container mt-4">
+                                        <div class="row">
+
+                                            <div class="col-lg-3">
+                                                <img th:src="@{${item.rutaImagen}}" alt="Image for ${item.descripcion}" class="img-fluid rounded-circle" />
+                                            </div>
+
+                                            <div class="col-lg-7">
+                                                <h1 th:text="${item.nombre}"></h1>
+                                                <p th:text="${item.descripcion}"></p>
+                                            </div>
+
+                                            <div class="col-lg-2">
+
+                                                <a th:href="@{/SubCategorias/eliminar/{id}(id=${item.idSubcategoria})}" class="btn btn-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+
+                                                <a th:href="@{/SubCategorias/modificar/{id}(id=${item.idSubcategoria})}" class="btn btn-success">
+                                                    <i class="fas fa-pencil"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="agregarSubCategoria">
+            <div id="agregarSubCategoria" 
+                 class="modal fade" 
+                 tabindex="-1" 
+                 aria-labelledby="exampleModalLabel" 
+                 aria-hidden="true">
+                <div class="modal-dialog modal-md">
+                    <div class="modal-content">
+                        <div class="modal-header bg-info text-white">
+                            <h5 class="modal-title">Agregar subcategoría</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div> 
+                        <form th:action="@{/SubCategorias/Guardar}" th:object="${SubCategoria}"
+                              method="POST" class="was-validated" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label for="categoria">Categoria</label>
+                                    <select id="categoria" name="categoria" class="form-control" required>
+                                        <option value="" disabled selected>Select a category</option>
+                                        <option th:each="categoria : ${Categorias}" 
+                                                th:value="${categoria.idCategoria}" 
+                                                th:text="${categoria.nombre}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="nombre">Nombre de la subcategoría</label>
+                                    <input type="text" class="form-control" name="nombre" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="descripcion">Descripción</label>
+                                    <input type="text" class="form-control" name="descripcion" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="activo">Activo</label>
+                                    <input class="form-check-input" type="checkbox" name="activo" id="activo"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="imagenFile">Imagen</label>
+                                    <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
+                                    <img id="blah" src="#" alt="your image" height="200"/>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="editarSubCategorias">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form method="POST"
+                          th:action="@{/SubCategorias/Guardar}" 
+                          th:object="${SubCategoria}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="id" th:field="*{idSubcategoria}"/>
+                        <input type="hidden" name="rutaImagen" th:field="*{rutaImagen}"/>
+                        <section th:replace="~{Subcategorias/fragmentos :: botonesEditar}"/>
+                        <div id=details>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h4>Actualizar categoría</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="mb-3">
+                                                    <label for="nombre">Nombre</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="nombre" th:field="*{nombre}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="descripcion">Descripción</label>
+                                                    <input type="text" class="form-control" 
+                                                           name="descripcion" th:field="*{descripcion}"
+                                                           required="true">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="activo">Activo</label>
+                                                    <input type="checkbox" class="form-control-checkbox" 
+                                                           name="activo" th:field="*{activo}"
+                                                           required="true">
+                                                </div>
+
+                                                <div class="mt-5 mb-3 container">
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <img id="blah" class="img-fluid rounded-circle" th:src="@{${SubCategoria.rutaImagen}}" alt="your image" height="200"/>
+                                                        </div>
+                                                        <div class="col-lg-9">
+                                                            <div class="mt-3">
+                                                                <label for="imagenFile">Imagen</label>
+                                                                <input class="form-control"  type="file" name="imagenFile" onchange="readURL(this);" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <section th:fragment="botonesEditar">
+            <div class="container py-4 mb-4 bg-light">
+                <div class="row">
+                    <div class="col-md-4 d-grid">
+                        <a th:href="@{/SubCategorias}" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Volver
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">                                
+                        <a th:href="@{/SubCategorias/eliminar/}+${SubCategoria.idSubcategoria}"
+                           class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Eliminar
+                        </a>
+                    </div>
+                    <div class="col-md-4 d-grid">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -14,6 +14,7 @@ import lombok.Data;
 @Entity
 @Table(name = "subcategoria")
 public class Subcategoria implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,10 @@ public class Subcategoria implements Serializable {
     private Long idSubcategoria;
 
     private String descripcion;
+
+    private String nombre;
+    
+    @Column(name = "ruta_imagen", length = 2048)
     private String rutaImagen;
     private boolean activo;
 

@@ -6,9 +6,30 @@
     <body>     
         <header th:replace="~{layout/plantilla :: header}" />
         <div class="container mt-4">
-            <h1>Index</h1>
+            <form action="#" class="mb-10">
+                <input type="text" name="Searched" value="" placeholder="Buscar productos" style="border:2px solid #008532;
+                       border-radius: 5px;
+                       padding: 5px; margin-left: 15px;" />
+                <button type="submit" class="search-button" style="padding:10px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+            <p th:if="${totalcategorias == 0}">
+                No hay categorías para mostrar
+            </p>
+            <div th:each="item : ${categorias}" accesskey="">
+                <div class="col-lg-3">
+                    <div class="card">
+                        <img th:src="@{${item.rutaImagen}}" class="card-img-top" alt="Imagen de Categoría"/>
+                        <div class="card-body">
+                            <h1 th:text="${item.Nombre}"></h1>
+                            <p th:text="${item.descripcion}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- <footer th:replace="~{layout/plantilla :: footer}" />  -->
+        <footer th:replace="~{layout/plantilla :: footer}" /> 
     </body>
 </html>
 
