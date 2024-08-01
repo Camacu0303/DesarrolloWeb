@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>Finca de muchi</title>
+    </head>
+    <body>     
+        <header th:replace="~{layout/plantilla :: header}" />
+        <form action="#">
+            <input type="text" name="Searched" value="" placeholder="Buscar productos" style="border:2px solid #008532;
+                   border-radius: 5px;
+                   padding: 5px; margin-left: 15px;" />
+            <button type="submit" class="search-button" style="padding:10px;">
+                <i class="fas fa-search"></i>
+            </button>
+        </form>
+    </body>
+</html>

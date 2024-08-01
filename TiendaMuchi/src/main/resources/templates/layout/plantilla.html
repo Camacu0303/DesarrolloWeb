@@ -12,7 +12,7 @@
         <script src="http://localhost:35729/livereload.js"></script>
     </head>
     <body>
-        <header th:fragment="header">
+        <header th:fragment="header" class="sticky-top">
             <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008532;">
                 <div class="container d-flex justify-content-between align-items-center">
                     <div>
@@ -23,13 +23,18 @@
                     </div>
                     <div>
                         <a href="#" class="btn btn-outline-light"><i class="fa-solid fa-shopping-cart"></i></a>
+                        <a href="#" class="btn btn-outline-light"><i class="fa-solid fa-user"></i></a>
                     </div>
+                    
                 </div>
             </nav>
             <div class="container mt-4">
                 <div class="list-group" id="siteList" style="display: none;">
-                      <a class="list-group-item list-group-item-action" th:href="@{/index}">Inicio <i class="fas fa-home fa"></i></i></a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/index}">Inicio <i class="fas fa-home fa"></i></a>
                     <a class="list-group-item list-group-item-action" th:href="@{/contacto}">Contacto <i class="fa-regular fa-address-book"></i></a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/Categorias}">Categorias <i class="fas fa-tag"></i></a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/Categorias}">Subcategorias <i class="fa-solid fa-tags"></i></a>
+                    <a class="list-group-item list-group-item-action" th:href="@{/productos}">Productos <i class="fa-solid fa-plant-wilt"></i></a>
                 </div>
             </div>
             <script>
