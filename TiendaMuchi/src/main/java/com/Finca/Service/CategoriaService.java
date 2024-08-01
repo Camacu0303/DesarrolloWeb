@@ -5,7 +5,9 @@
 package com.Finca.Service;
 
 import com.Finca.Domain.Categoria;
+import com.Finca.Domain.Subcategoria;
 import java.util.List;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -24,4 +26,12 @@ public interface CategoriaService {
 
     // Se elimina el categoria que tiene el id pasado por parámetro
     public void delete(Categoria categoria);
+
+    public List<Categoria> getAllCategoriasWithSubcategorias();
+
+    public void addSubcategoriaToCategoria(Long categoriaId, Subcategoria subcategoria);
+
+    public List<Categoria> findAll();
+
+    public List<Categoria> findAllWithSubcategorias();
 }

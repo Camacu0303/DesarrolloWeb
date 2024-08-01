@@ -17,19 +17,64 @@
             <p th:if="${totalcategorias == 0}">
                 No hay categorías para mostrar
             </p>
-            <div th:each="item : ${categorias}" accesskey="">
-                <div class="col-lg-3">
-                    <div class="card">
-                        <img th:src="@{${item.rutaImagen}}" class="card-img-top" alt="Imagen de Categoría"/>
-                        <div class="card-body">
-                            <h1 th:text="${item.Nombre}"></h1>
-                            <p th:text="${item.descripcion}"></p>
+            <div th:each="categoria : ${categorias}">
+                <div class="col-lg-12 mt-5">
+                    <h3 th:text="${categoria.nombre}"></h3>
+                    <div class="cont">
+                        <!-- Optional: <img th:src="@{${categoria.rutaImagen}}" class="card-img-top" alt="Imagen de Categoría"/> -->
+                        <div class="cont-body">
+                            <div class="subcategoria-container scrollable-x">
+                                <a th:each="subcategoria : ${categoria.subcategorias}"
+                                   th:href="@{/SubCategorias/listadoIndividual/{id}(id=${subcategoria.idSubcategoria})}" 
+                                   class="subcategoria-card">
+                                    <div class="subcategoria-image">
+                                        <img th:src="@{${subcategoria.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
+                                    </div>
+                                    <div class="subcategoria-content">
+                                        <h5 th:text="${subcategoria.nombre}"></h5>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <footer th:replace="~{layout/plantilla :: footer}" /> 
+        <style>
+            .scrollable-x {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                overflow-x: auto;
+                white-space: nowrap;
+                overflow-y: hidden; /* Prevent vertical scrolling */
+            }
+
+            .subcategoria-cont {
+                display: inline-block;
+
+            }
+            .subcategoria-card {
+                margin-right: 30px; /* Adjust spacing between cards as needed */
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .subcategoria-card:hover {
+                transform: scale(1.05); /* Slightly enlarges the item */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to create a "pop" effect */
+            }
+            .fixed-size-image {
+                width: 200px;
+                height: 200px;
+                object-fit: fill; /* Ensures the image covers the area without distortion */
+            }
+            h3{
+                color: #1d7121;
+            }
+            .cont-body{
+                text-align: center;
+                border: none;
+            }
+        </style>
     </body>
 </html>
-

@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.GetMapping;
  */
 @Controller
 @Slf4j
-public class ProductosController {
-    @GetMapping("/Productos")
+public class LoginController {
+
+    @GetMapping("/Login")
     public String Inicio() {
-        return "/Productos/listado"; 
+        return "/Login/inicio";
     }
 }

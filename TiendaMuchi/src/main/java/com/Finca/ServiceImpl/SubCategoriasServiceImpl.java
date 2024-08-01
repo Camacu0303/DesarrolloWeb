@@ -44,7 +44,11 @@ public class SubCategoriasServiceImpl implements SubCategoriaService{
     public void save(Subcategoria categoria) {
         categoriaDao.save(categoria);
     }
-
+    @Override
+    @Transactional(readOnly = true)
+    public List<Subcategoria> getSubCategoriasByCategoria(Categoria categoria) {
+        return categoriaDao.findByCategoria(categoria);
+    }
     @Override
     @Transactional
     public void delete(Subcategoria categoria) {

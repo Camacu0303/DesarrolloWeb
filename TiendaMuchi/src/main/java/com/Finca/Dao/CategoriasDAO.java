@@ -5,12 +5,17 @@
 package com.Finca.Dao;
 
 import com.Finca.Domain.Categoria;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
  * @author Campos
  */
-public interface CategoriasDAO extends JpaRepository<Categoria, Long>{
-    
+public interface CategoriasDAO extends JpaRepository<Categoria, Long> {
+
+    @Query("SELECT DISTINCT c FROM Categoria c LEFT JOIN FETCH c.subcategorias")
+    List<Categoria> findAllWithSubcategorias();
 }

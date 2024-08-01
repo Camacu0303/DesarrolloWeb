@@ -34,39 +34,41 @@ import org.springframework.web.multipart.MultipartFile;
 public class SubCategoriasController {
 
     @Autowired
-    private SubCategoriaService SubcategoriaService;  
-    
+    private SubCategoriaService SubcategoriaService;
+
     @Autowired
-    private CategoriaService categoriaService;  
-    
+    private CategoriaService categoriaService;
+
     @Autowired
     private FirebaseStorageService firebaseStorageService;
 
     @GetMapping("/SubCategorias")
     public String inicio(Model model) {
         var SubCategoria = SubcategoriaService.getSubCategorias(false);
-        var categorias= categoriaService.getCategorias(false);
+        var categorias = categoriaService.getCategorias(false);
         model.addAttribute("Categorias", categorias);
         model.addAttribute("SubCategorias", SubCategoria);
         model.addAttribute("SubCategoria", new Subcategoria());
         model.addAttribute("totalSubCategorias", SubCategoria.size());
         return "/SubCategorias/listado";
     }
-    
+
     @PostMapping("/SubCategorias/Guardar")
     public String categoriaGuardar(Subcategoria subcategoria,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
 
         if (!imagenFile.isEmpty()) {
-        SubcategoriaService.save(subcategoria);
-        subcategoria.setRutaImagen(
-        firebaseStorageService.cargaImagen(
-        imagenFile,
-        "subcategoria",
-        subcategoria.getIdSubcategoria()));
+            SubcategoriaService.save(subcategoria);
+            subcategoria.setRutaImagen(
+                    firebaseStorageService.cargaImagen(
+                            imagenFile,
+                            "subcategoria",
+                            subcategoria.getIdSubcategoria()));
         }
-        
-        SubcategoriaService.save(subcategoria); 
+
+        SubcategoriaService.save(subcategoria);
+        subcategoria.getCategoria().addSubcategoria(subcategoria);
+        categoriaService.save(subcategoria.getCategoria());
         return "redirect:/SubCategorias";
     }
 
@@ -81,5 +83,11 @@ public class SubCategoriasController {
         subcategoria = SubcategoriaService.getSubCategoria(subcategoria);
         model.addAttribute("SubCategoria", subcategoria);
         return "/SubCategorias/modifica";
+    }
+     @GetMapping("/SubCategorias/listadoIndividual/{idSubcategoria}")
+    public String listadoIndividual(Subcategoria subcategoria, Model model) {
+        var SubCategoria = SubcategoriaService.getSubCategoria(subcategoria);
+        model.addAttribute("subcategoria", SubCategoria);
+        return "/SubCategorias/listadoIndividual";
     }
 }

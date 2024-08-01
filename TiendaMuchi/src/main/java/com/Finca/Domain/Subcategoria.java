@@ -9,6 +9,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @Entity
@@ -24,13 +26,13 @@ public class Subcategoria implements Serializable {
     private String descripcion;
 
     private String nombre;
-    
+
     @Column(name = "ruta_imagen", length = 2048)
     private String rutaImagen;
     private boolean activo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
@@ -42,5 +44,9 @@ public class Subcategoria implements Serializable {
     public Subcategoria(String descripcion, boolean activo) {
         this.descripcion = descripcion;
         this.activo = activo;
+    }
+    @Override
+    public String toString() {
+        return "Child{id=" + idSubcategoria + ", parentId=" + (categoria != null ? categoria.getIdCategoria(): null) + "}";
     }
 }

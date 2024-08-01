@@ -4,7 +4,9 @@
  */
 package com.Finca.Controller;
 
+import com.Finca.Domain.Categoria;
 import com.Finca.Service.CategoriaService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +24,16 @@ public class IndexController {
 
     @GetMapping("/index")
     public String contactoPage(Model model) {
-        var categorias= categoriaService.getCategorias(false);
-        var totalcategorias= categorias.size();
-        System.out.println(categorias);
-        model.addAttribute("categorias", categorias);
+        
+        
+        
+        List<Categoria> categorias = categoriaService.findAllWithSubcategorias();
+        for (Categoria categoria : categorias) {
+            System.out.println(categoria);
+        }
+        var totalcategorias = categorias.size();
         model.addAttribute("totalcategorias", totalcategorias);
+        model.addAttribute("categorias", categorias);
         return "index";
     }
 }

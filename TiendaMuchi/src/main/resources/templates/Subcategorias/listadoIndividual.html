@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <a class="subcategoria-card">
+            <div class="subcategoria-image">
+                <img th:src="@{${subcategoria.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
+            </div>
+            <div class="subcategoria-content">
+                <h5 th:text="${subcategoria.nombre}"></h5>
+            </div>
+        </a>
+        <footer th:replace="~{layout/plantilla :: footer}"/>  
+    </body>
+</html>

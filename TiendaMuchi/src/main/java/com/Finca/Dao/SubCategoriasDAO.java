@@ -5,7 +5,9 @@
 package com.Finca.Dao;
 
 
+import com.Finca.Domain.Categoria;
 import com.Finca.Domain.Subcategoria;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
@@ -13,5 +15,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Campos
  */
 public interface SubCategoriasDAO extends JpaRepository<Subcategoria, Long>{
-    
+    List<Subcategoria> findByCategoria(Categoria categoria);
 }

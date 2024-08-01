@@ -6,6 +6,7 @@ package com.Finca.ServiceImpl;
 
 import com.Finca.Dao.CategoriasDAO;
 import com.Finca.Domain.Categoria;
+import com.Finca.Domain.Subcategoria;
 import com.Finca.Service.CategoriaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +49,28 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Transactional
     public void delete(Categoria categoria) {
         categoriaDao.delete(categoria);
+    }
+    
+    @Override
+    @Transactional
+    public List<Categoria> findAllWithSubcategorias() {
+        return categoriaDao.findAllWithSubcategorias();
+    }
+
+    @Transactional
+    public void addSubcategoriaToCategoria(Long categoriaId, Subcategoria subcategoria) {
+        Categoria categoria = categoriaDao.findById(categoriaId).orElseThrow(() -> new RuntimeException("Categoria not found"));
+        subcategoria.setCategoria(categoria);
+        categoria.getSubcategorias().add(subcategoria);
+        categoriaDao.save(categoria);
+    }
+
+    public List<Categoria> findAll() {
+        return categoriaDao.findAll();
+    }
+
+    @Override
+    public List<Categoria> getAllCategoriasWithSubcategorias() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
