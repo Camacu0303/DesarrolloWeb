@@ -13,6 +13,16 @@
                 <h5 th:text="${subcategoria.nombre}"></h5>
             </div>
         </a>
+        <div class="container">
+            <div th:each="item : ${productos}">
+                <div class="subcategoria-image">
+                    <img th:src="@{${item.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
+                </div>
+                <div class="subcategoria-content">
+                    <h5 th:text="${item.nombre}"></h5>
+                </div>
+            </div>
+        </div>
         <footer th:replace="~{layout/plantilla :: footer}"/>  
     </body>
 </html>

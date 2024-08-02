@@ -66,22 +66,22 @@ public class ProductosController {
         productoService.save(producto);
         producto.getSubcategoria().addProducto(producto);
         SubcategoriaService.save(producto.getSubcategoria());
-        return "redirect:/SubCategorias";
+        return "redirect:/Productos";
     }
 
-    @GetMapping("/Productos/eliminar/{idSubcategoria}")
+    @GetMapping("/Productos/eliminar/{idProducto}")
     public String productoEliminar(Producto producto) {
         productoService.delete(producto);
-        return "redirect:/SubCategorias";
+        return "redirect:/Productos";
     }
 
-    @GetMapping("/Productos/modificar/{idSubcategoria}")
+    @GetMapping("/Productos/modificar/{idProducto}")
     public String productoModificar(Producto producto, Model model) {
         producto = productoService.getProducto(producto);
         model.addAttribute("Producto", producto);
         return "/Productos/modifica";
     }
-    @GetMapping("/Productos/listadoIndividual/{idSubcategoria}")
+    @GetMapping("/Productos/listadoIndividual/{idProducto}")
     public String listadoIndividual(Producto producto, Model model) {
         var SubCategoria = productoService.getProducto(producto);
         model.addAttribute("Producto", SubCategoria);

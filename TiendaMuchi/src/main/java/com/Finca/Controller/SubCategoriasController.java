@@ -84,10 +84,12 @@ public class SubCategoriasController {
         model.addAttribute("SubCategoria", subcategoria);
         return "/SubCategorias/modifica";
     }
-     @GetMapping("/SubCategorias/listadoIndividual/{idSubcategoria}")
+
+    @GetMapping("/SubCategorias/listadoIndividual/{idSubcategoria}")
     public String listadoIndividual(Subcategoria subcategoria, Model model) {
         var SubCategoria = SubcategoriaService.getSubCategoria(subcategoria);
         model.addAttribute("subcategoria", SubCategoria);
+        model.addAttribute("productos", SubCategoria.getProductos());
         return "/SubCategorias/listadoIndividual";
     }
 }
