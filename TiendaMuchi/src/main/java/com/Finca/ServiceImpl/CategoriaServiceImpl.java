@@ -50,7 +50,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public void delete(Categoria categoria) {
         categoriaDao.delete(categoria);
     }
-    
+
     @Override
     @Transactional
     public List<Categoria> findAllWithSubcategorias() {
@@ -72,5 +72,9 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public List<Categoria> getAllCategoriasWithSubcategorias() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Subcategoria> findSubcategoriasByCategoriaId(Long categoriaId) {
+        return categoriaDao.findSubcategoriasByCategoriaId(categoriaId);
     }
 }

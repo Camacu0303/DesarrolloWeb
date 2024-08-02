@@ -6,6 +6,9 @@
         <title>Exp</title>
     </head>
     <body>
+        <script>
+            alert();
+        </script>
         <section th:fragment="listadoProductos" id="Productos">
             <div class="">
                 <div class="container mt-4">
@@ -21,7 +24,7 @@
                                 <i class="fas fa-plus"></i> Agregar Productos
                             </button>
                         </div>
-                        <p th:if="${totalProductos == 0}">
+                        <p th:if="${totalproductos == 0}">
                             No hay productos para mostrar
                         </p>
                         <div th:each="item : ${Productos}" class="col-lg-12 mb-4">
@@ -37,6 +40,8 @@
                                             <div class="col-lg-7">
                                                 <h1 th:text="${item.nombre}"></h1>
                                                 <p th:text="${item.descripcion}"></p>
+                                                <p th:text="${item.existencias}"></p>
+                                                <p th:text="${item.precio}"></p>
                                             </div>
 
                                             <div class="col-lg-2">
@@ -70,22 +75,34 @@
                             <h5 class="modal-title">Agregar Productos</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div> 
-                        <form th:action="@{/Productos/Guardar}" th:object="${Producto}"
-                              method="POST" class="was-validated" enctype="multipart/form-data">
-                            <div class="modal-body">
+                        <div class="modal-body">
+                            <label>Categorias</label>
+                            <select id="categoria" name="categoria" class="form-control" required>
+                                <option value="" disabled selected>Select a category</option>
+                                <option th:each="item : ${Categorias}" 
+                                        th:value="${item.idCategoria}" 
+                                        th:text="${item.nombre}">
+                                </option>
+                            </select>
+                            <form th:action="@{/Productos/Guardar}" th:object="${Producto}"
+                                  method="POST" class="was-validated" enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="categoria">Categoria</label>
-                                    <select id="categoria" name="categoria" class="form-control" required>
+                                    <label for="subcategoria">Subcategoría</label>
+                                    <select id="subcategoria" name="subcategoria" class="form-control" required>
                                         <option value="" disabled selected>Select a category</option>
-                                        <option th:each="categoria : ${Categorias}" 
-                                                th:value="${categoria.idCategoria}" 
-                                                th:text="${categoria.nombre}">
+                                        <option th:each="item : ${Subcategorias}" 
+                                                th:value="${item.idSubcategoria}" 
+                                                th:text="${item.nombre}">
                                         </option>
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="nombre">Nombre de la subcategoría</label>
+                                    <label for="nombre">Nombre del producto</label>
                                     <input type="text" class="form-control" name="nombre" required="true"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="precio">Precio</label>
+                                    <input type="number" step="0.01" class="form-control" name="precio" required="true"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="descripcion">Descripción</label>
@@ -100,11 +117,12 @@
                                     <input class="form-control" type="file" name="imagenFile" onchange="readURL(this);"/>
                                     <img id="blah" src="#" alt="your image" height="200"/>
                                 </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-primary" type="submit">Guardar</button>
-                            </div>
-                        </form>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" type="submit">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -193,5 +211,6 @@
                 </div>
             </div>
         </section>
+
     </body>
 </html>

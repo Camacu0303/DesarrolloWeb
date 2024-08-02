@@ -5,6 +5,7 @@
  */
 package com.Finca.Domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class Subcategoria implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_categoria", nullable = false)
+    @JsonBackReference
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
@@ -45,8 +47,16 @@ public class Subcategoria implements Serializable {
         this.descripcion = descripcion;
         this.activo = activo;
     }
+
     @Override
     public String toString() {
-        return "Child{id=" + idSubcategoria + ", parentId=" + (categoria != null ? categoria.getIdCategoria(): null) + "}";
+        return "Child{id=" + idSubcategoria + ", parentId=" + (categoria != null ? categoria.getIdCategoria() : null) + "}";
+    }
+    public void addProducto(Producto producto) {
+        productos.add(producto);
+        producto.setSubcategoria(this);
+    }
+    public void removeProducto(Subcategoria subcategoria) {
+        productos.remove(subcategoria);
     }
 }

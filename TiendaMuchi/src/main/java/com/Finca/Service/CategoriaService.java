@@ -34,4 +34,7 @@ public interface CategoriaService {
     public List<Categoria> findAll();
 
     public List<Categoria> findAllWithSubcategorias();
+
+    public List<Subcategoria> findSubcategoriasByCategoriaId(Long categoriaId);
+    
 }

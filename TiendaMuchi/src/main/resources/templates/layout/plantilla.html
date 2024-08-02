@@ -10,10 +10,28 @@
         <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
         <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
         <script src="http://localhost:35729/livereload.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body>
-        <header th:fragment="header" class="sticky-top">
-            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #008532;">
+        <header th:fragment="header">
+            <style>
+                .image-container {
+                    width: 100%;
+                    height: 30vh; /* Adjust this height to show the desired portion of the image */
+                    background-image: url('/images/bg.png'); /* Path to your image */
+                    background-size: cover; /* Cover the entire container */
+                    background-position: center bottom; /* Show the bottom part of the image */
+                    background-repeat: no-repeat; /* Prevent image repetition */
+                    filter: blur(3px); /* Apply blur effect */
+                    transform: scale(1.1);
+                    top: 0;
+                    left: 0;
+                    display: block; /* Make sure this is higher than the navbar's z-index */
+                }
+            </style>
+
+
+            <nav class="navbar navbar-expand-lg navbar-dark sticky-top" style="background-color: #008532;">
                 <div class="container d-flex justify-content-between align-items-center">
                     <div>
                         <button class="btn btn-outline-light" id="showListButton"><i class="fa-solid fa-bars"></i></button>
@@ -25,24 +43,72 @@
                         <a href="#" class="btn btn-outline-light"><i class="fa-solid fa-shopping-cart"></i></a>
                         <a th:href="@{/Login}" class="btn btn-outline-light"><i class="fa-solid fa-user"></i></a>
                     </div>
-                    
+
                 </div>
             </nav>
-            <div class="container mt-4">
+            <div class="container">
                 <div class="list-group" id="siteList" style="display: none;">
-                    <a class="list-group-item list-group-item-action" th:href="@{/index}">Inicio <i class="fas fa-home fa"></i></a>
+                    <a class="list-group-item list-group-item-action mt-4" th:href="@{/index}">Inicio <i class="fas fa-home fa"></i></a>
                     <a class="list-group-item list-group-item-action" th:href="@{/contacto}">Contacto <i class="fa-regular fa-address-book"></i></a>
                     <a class="list-group-item list-group-item-action" th:href="@{/Categorias}">Categorias <i class="fas fa-tag"></i></a>
                     <a class="list-group-item list-group-item-action" th:href="@{/SubCategorias}">Subcategorias <i class="fa-solid fa-tags"></i></a>
-                    <a class="list-group-item list-group-item-action" th:href="@{/Productos}">Productos <i class="fa-solid fa-plant-wilt"></i></a>
+                    <a class="list-group-item list-group-item-action mb-4" th:href="@{/Productos}">Productos <i class="fa-solid fa-plant-wilt"></i></a>
                 </div>
             </div>
+            <div class="container1" style="height: 28vh; width: 100%; overflow: hidden">
+                <div class="image-container">
+                </div>
+            </div>
+
             <script>
                 $(document).ready(function () {
                     $('#showListButton').click(function () {
                         $('#siteList').slideToggle();
+                        // Desplazar al inicio del documento
+                        $('html, body').scrollTop(0);
                     });
                 });
+
+                $(document).ready(function () {
+                    $('#categoria').change(function () {
+                        var categoriaId = $(this).val();
+                        if (categoriaId) {
+                            $.ajax({
+                                url: '/obtenerSubcategoria', // Updated URL
+                                type: 'GET',
+                                data: {categoriaId: categoriaId},
+                                success: function (data) {
+                                    var subcategoriaSelect = $('#subcategoria');
+                                    subcategoriaSelect.empty();
+                                    subcategoriaSelect.append('<option value="" disabled selected>Select a subcategory</option>');
+                                    $.each(data, function (index, subcategoria) {
+                                        subcategoriaSelect.append('<option value="' + subcategoria.idSubcategoria + '">' + subcategoria.nombre + '</option>');
+                                    });
+                                },
+                                error: function (xhr, status, error) {
+                                    console.error('Error fetching subcategories:', error);
+                                }
+                            });
+                        } else {
+                            $('#subcategoria').empty().append('<option value="" disabled selected>Select a subcategory</option>');
+                        }
+                    });
+                });
+
+
+
+
+
+
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            $('#blah').attr('src', e.target.result);
+                        }
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
             </script>
         </header>
         <footer th:fragment="footer" class="bg-info text-white mt-5 p-2">
@@ -54,5 +120,6 @@
                 </div>
             </div>
         </footer>
+
     </body>
 </html>
