@@ -54,7 +54,7 @@ public class CategoriasController {
                             categoria.getIdCategoria()));
         }
 
-        categoriaService.save(categoria); // Guardar el arbol (debería manejar tanto inserción como actualización)
+        categoriaService.save(categoria); 
         return "redirect:/Categorias";
     }
 

@@ -90,6 +90,7 @@ public class SubCategoriasController {
         var SubCategoria = SubcategoriaService.getSubCategoria(subcategoria);
         model.addAttribute("subcategoria", SubCategoria);
         model.addAttribute("productos", SubCategoria.getProductos());
+        model.addAttribute("totalproductos", SubCategoria.getProductos().size());
         return "/SubCategorias/listadoIndividual";
     }
 }

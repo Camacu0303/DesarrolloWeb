@@ -4,25 +4,84 @@
         <title>TechShop</title>
     </head>
     <body>
-        <header th:replace="~{layout/plantilla :: header}"/>
-        <a class="subcategoria-card">
-            <div class="subcategoria-image">
-                <img th:src="@{${subcategoria.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
-            </div>
+        <header th:replace="~{layout/plantilla :: header}"/>       
+        <div class="container mt-4">
+            <h1 th:text="${subcategoria.nombre}"></h1>
+            <p th:text="${subcategoria.descripcion}"></p>
             <div class="subcategoria-content">
-                <h5 th:text="${subcategoria.nombre}"></h5>
             </div>
-        </a>
-        <div class="container">
-            <div th:each="item : ${productos}">
-                <div class="subcategoria-image">
-                    <img th:src="@{${item.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
-                </div>
-                <div class="subcategoria-content">
-                    <h5 th:text="${item.nombre}"></h5>
+            <p th:if="${totalproductos == 0}">
+                No hay productos para mostrar <a th:href="@{/index}">Volver</a>
+            </p>
+            <div class="cont">
+
+                <div class="cont-body">
+                    <div class="subcategoria-container">
+                        <a th:each="item : ${subcategoria.Productos}"
+                           th:href="@{/Productos/listadoIndividual/{id}(id=${item.idProducto})}" 
+                           class="subcategoria-card">
+                            <div class="subcategoria-image">
+                                <img th:src="@{${item.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
+                            </div>
+                            <div class="subcategoria-content">
+                                <h5 class="mt-4" th:text="${item.nombre}"></h5>
+                                <h5 class="mt-5">Ver información</h5>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
         <footer th:replace="~{layout/plantilla :: footer}"/>  
+        <style>
+            .subcategoria-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px; /* Space between items */
+            }
+
+            .subcategoria-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-decoration: none; /* Remove underline from links */
+                color: inherit; /* Inherit color from parent */
+            }
+
+            .subcategoria-card:hover {
+                transform: scale(1.05); /* Slightly enlarges the item */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to create a "pop" effect */
+            }
+
+            .fixed-size-image {
+                width: 100%;
+                height: auto;
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: cover;
+            }
+
+            h1 {
+                color: #1d7121;
+            }
+
+            .card-body {
+                text-align: center;
+                border: none;
+            }
+        </style>
+
     </body>
 </html>
+<!--                        
+<a href="#" class="subcategoria-card">
+    <div class="subcategoria-image">
+        <img src="https://via.placeholder.com/200" alt="Placeholder Image" class="fixed-size-image"/>
+    </div>
+    <div class="subcategoria-content">
+        <h5>Placeholder de prueba</h5><h5>Ver información</h5>
+    </div>
+</a>
+<!-- Repeat ends --> 

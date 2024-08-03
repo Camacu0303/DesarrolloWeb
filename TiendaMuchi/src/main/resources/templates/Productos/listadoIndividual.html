@@ -1,0 +1,121 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>       
+        <div class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 text-center">
+                    <h1 th:text="${Producto.nombre}"></h1>
+                    <img th:src="@{${Producto.rutaImagen}}" alt="Image for ${Producto.descripcion}" class="img-circle img-fluid" />
+                    <p th:text="${Producto.descripcion}"></p>
+                    <p class="text-start ms-5">Precio: ₡ <span th:text="${Producto.precio}"></span></p>
+                    <p class="text-start ms-5">Existencias: <span th:text="${Producto.existencias}"></span></p>
+                    <form method="POST"
+                          th:action="@{/Productos/Guardar}" 
+                          th:object="${Producto}"
+                          class="was-validated"                          
+                          enctype="multipart/form-data">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-6">
+
+                                    <input type="hidden" name="id" th:field="*{idProducto}"/>
+                                    <button type="button" id="decrement-btn" style="height:100%;"> 
+                                        <i class="fa-solid fa-caret-left"></i>
+                                    </button>
+                                    <input type="number" min="1" id="quantity" name="Cantidad" value="1" class="hide-controllers" style="width: 25%; height:100%;"/>
+                                    <button type="button" id="increment-btn" style="height:100%;">
+                                        <i class="fa-solid fa-caret-right"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-6">
+                                    <button type="submit" name="submit" class="btn btn-light" >
+                                        <i class="fas fa-cart-plus" style="color: #1d7121"></i><span class="class" style="color: #1d7121">Añadir al carrito</span>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const decrementBtn = document.getElementById('decrement-btn');
+                            const incrementBtn = document.getElementById('increment-btn');
+                            const quantityInput = document.getElementById('quantity');
+
+                            function updateQuantity(delta) {
+                                const currentValue = parseInt(quantityInput.value, 10);
+                                const newValue = currentValue + delta;
+
+                                if (newValue > 0) {
+                                    quantityInput.value = newValue;
+                                }
+                            }
+
+                            decrementBtn.addEventListener('click', () => updateQuantity(-1));
+                            incrementBtn.addEventListener('click', () => updateQuantity(1));
+                        });
+                    </script>
+                    <style>
+                        .hide-controllers {
+                            appearance: none;
+                            -moz-appearance: textfield; /* Firefox */
+                        }
+
+                        /* Hide spin buttons in Webkit browsers (Chrome, Safari) */
+                        .hide-controllers::-webkit-inner-spin-button,
+                        .hide-controllers::-webkit-outer-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                        }
+
+                    </style>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{layout/plantilla :: footer}"/>  
+        <style>
+            .subcategoria-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px; /* Space between items */
+            }
+
+            .subcategoria-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-decoration: none; /* Remove underline from links */
+                color: inherit; /* Inherit color from parent */
+            }
+
+            .subcategoria-card:hover {
+                transform: scale(1.05); /* Slightly enlarges the item */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to create a "pop" effect */
+            }
+
+            .fixed-size-image {
+                width: 100%;
+                height: auto;
+                max-width: 200px; /* Limit the image width */
+                max-height: 200px; /* Limit the image height */
+                object-fit: cover; /* Ensures the image covers the area without distortion */
+            }
+
+            h1 {
+                color: #1d7121; /* Same color as in your previous styles */
+            }
+
+            .card-body {
+                text-align: center;
+                border: none; /* Ensure card-body doesn't have borders */
+            }
+        </style>
+
+    </body>
+</html>

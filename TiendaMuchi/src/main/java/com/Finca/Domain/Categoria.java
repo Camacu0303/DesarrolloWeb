@@ -27,7 +27,7 @@ public class Categoria implements Serializable {
 
     private boolean activo;
 
-    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
     private List<Subcategoria> subcategorias;
 
     public void addSubcategoria(Subcategoria subcategoria) {

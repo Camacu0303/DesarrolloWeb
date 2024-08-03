@@ -38,7 +38,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public Producto getProducto(Producto producto) {
-        return productosDAO.findById(producto.getSubcategoria().getIdSubcategoria()).orElse(null);
+        return productosDAO.findById(producto.getIdProducto()).orElse(null);
     }
 
     @Override

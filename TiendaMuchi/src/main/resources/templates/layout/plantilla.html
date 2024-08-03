@@ -28,6 +28,12 @@
                     left: 0;
                     display: block; /* Make sure this is higher than the navbar's z-index */
                 }
+                .img-circle {
+                    width: 200px; /* Set the width */
+                    height: 200px; /* Set the height equal to the width */
+                    object-fit: cover; /* Ensures the image covers the container without distortion */
+                    border-radius: 50%; /* Makes the image circular */
+                }
             </style>
 
 
@@ -80,7 +86,7 @@
                                 success: function (data) {
                                     var subcategoriaSelect = $('#subcategoria');
                                     subcategoriaSelect.empty();
-                                    subcategoriaSelect.append('<option value="" disabled selected>Select a subcategory</option>');
+                                    subcategoriaSelect.append('<option value="" disabled selected>Selecciona una subcategoría</option>');
                                     $.each(data, function (index, subcategoria) {
                                         subcategoriaSelect.append('<option value="' + subcategoria.idSubcategoria + '">' + subcategoria.nombre + '</option>');
                                     });

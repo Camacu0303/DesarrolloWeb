@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service //Implementa logica de lista de categorias
 public class CategoriaServiceImpl implements CategoriaService {
 
-    @Autowired //
+    @Autowired 
     private CategoriasDAO categoriaDao;
 
     @Override
@@ -71,7 +71,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public List<Categoria> getAllCategoriasWithSubcategorias() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     public List<Subcategoria> findSubcategoriasByCategoriaId(Long categoriaId) {

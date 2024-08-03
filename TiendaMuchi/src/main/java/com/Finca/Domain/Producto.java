@@ -1,5 +1,6 @@
 package com.Finca.Domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -20,6 +21,7 @@ public class Producto implements Serializable {
     private String nombre;
     private int existencias;
     private double precio;
+    @Column(name = "descripcion", length = 4096)
     private String descripcion;
 
     @Column(name = "ruta_imagen", length = 2048)
@@ -28,6 +30,7 @@ public class Producto implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_subcategoria")
+    @JsonIgnore
     private Subcategoria subcategoria;
 
     @Override

@@ -79,12 +79,15 @@ public class ProductosController {
     public String productoModificar(Producto producto, Model model) {
         producto = productoService.getProducto(producto);
         model.addAttribute("Producto", producto);
+        model.addAttribute("Categorias", CategoriaService.findAll());
+        model.addAttribute("Subcategorias", SubcategoriaService.getSubCategorias(false));
         return "/Productos/modifica";
     }
     @GetMapping("/Productos/listadoIndividual/{idProducto}")
     public String listadoIndividual(Producto producto, Model model) {
-        var SubCategoria = productoService.getProducto(producto);
-        model.addAttribute("Producto", SubCategoria);
+        
+        var Producto = productoService.getProducto(producto);
+        model.addAttribute("Producto", Producto);
         return "/Productos/listadoIndividual";
     }
 }

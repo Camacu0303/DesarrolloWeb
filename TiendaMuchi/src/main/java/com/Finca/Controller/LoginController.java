@@ -20,4 +20,14 @@ public class LoginController {
     public String Inicio() {
         return "/Login/inicio";
     }
+
+    @GetMapping("/Login/CrearCuenta")
+    public String CrearCuenta() {
+        return "/Login/CrearCuenta";
+    }
+
+    @GetMapping("/Login/IniciarSesion")
+    public String IniciarSesion() {
+        return "/Login/IniciarSesion";
+    }
 }

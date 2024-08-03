@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  *
@@ -24,16 +25,15 @@ public class IndexController {
 
     @GetMapping("/index")
     public String contactoPage(Model model) {
-        
-        
-        
         List<Categoria> categorias = categoriaService.findAllWithSubcategorias();
-        for (Categoria categoria : categorias) {
-            System.out.println(categoria);
-        }
         var totalcategorias = categorias.size();
         model.addAttribute("totalcategorias", totalcategorias);
         model.addAttribute("categorias", categorias);
         return "index";
+    }
+
+    @GetMapping("/")
+    public RedirectView redirectToIndex() {
+        return new RedirectView("/index");
     }
 }
