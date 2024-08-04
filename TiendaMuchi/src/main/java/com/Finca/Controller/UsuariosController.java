@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.Finca.Controller;
 
 import com.Finca.Domain.Usuario;
@@ -16,10 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-/**
- *
- * @author Campos
- */
+
 @Controller
 @Slf4j
 public class UsuariosController {
@@ -40,7 +34,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/Usuarios/Guardar")
-    public String categoriaGuardar(Usuario usuario,
+    public String usuariosGuardar(Usuario usuario,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
 
         if (!imagenFile.isEmpty()) {
@@ -57,16 +51,15 @@ public class UsuariosController {
     }
 
     @GetMapping("/Usuarios/eliminar/{id}")
-    public String categoriaEliminar(Usuario usuario) {
+    public String usuariosEliminar(Usuario usuario) {
         usuarioService.delete(usuario);
         return "redirect:/Usuarios";
     }
 
     @GetMapping("/Usuarios/modificar/{id}")
-    public String categoriaModificar(Usuario usuario, Model model) {
+    public String usuariosModificar(Usuario usuario, Model model) {
         usuario = usuarioService.getUsuario(usuario);
         model.addAttribute("usuario", usuario);
         return "/Usuarios/modifica";
-
     }
 }

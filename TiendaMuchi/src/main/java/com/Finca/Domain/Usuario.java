@@ -20,15 +20,15 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    
     private String username;
     private String password;
     private boolean recibirNoticias;
     private boolean activo;
+    @Column(nullable = false, unique = true)
     private String mail;
     @Column(name = "ruta_imagen", length = 2048)
     private String rutaImagen;
-    
+
     private String role;
 
     public Usuario(Long id, String username, String password, String role) {

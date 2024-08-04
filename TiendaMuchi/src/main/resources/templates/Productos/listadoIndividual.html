@@ -13,8 +13,8 @@
                     <p th:text="${Producto.descripcion}"></p>
                     <p class="text-start ms-5">Precio: ₡ <span th:text="${Producto.precio}"></span></p>
                     <p class="text-start ms-5">Existencias: <span th:text="${Producto.existencias}"></span></p>
-                    <form method="POST"
-                          th:action="@{/Productos/Guardar}" 
+                    <form
+                          action="#" 
                           th:object="${Producto}"
                           class="was-validated"                          
                           enctype="multipart/form-data">
@@ -62,10 +62,10 @@
                     <style>
                         .hide-controllers {
                             appearance: none;
-                            -moz-appearance: textfield; /* Firefox */
+                            -moz-appearance: textfield; 
                         }
 
-                        /* Hide spin buttons in Webkit browsers (Chrome, Safari) */
+                        
                         .hide-controllers::-webkit-inner-spin-button,
                         .hide-controllers::-webkit-outer-spin-button {
                             -webkit-appearance: none;
@@ -81,7 +81,7 @@
             .subcategoria-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px; /* Space between items */
+                gap: 20px; 
             }
 
             .subcategoria-card {
@@ -90,30 +90,30 @@
                 align-items: center;
                 text-align: center;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
-                text-decoration: none; /* Remove underline from links */
-                color: inherit; /* Inherit color from parent */
+                text-decoration: none; 
+                color: inherit; 
             }
 
             .subcategoria-card:hover {
-                transform: scale(1.05); /* Slightly enlarges the item */
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow to create a "pop" effect */
+                transform: scale(1.05); 
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
             }
 
             .fixed-size-image {
                 width: 100%;
                 height: auto;
-                max-width: 200px; /* Limit the image width */
-                max-height: 200px; /* Limit the image height */
-                object-fit: cover; /* Ensures the image covers the area without distortion */
+                max-width: 200px; 
+                max-height: 200px; 
+                object-fit: cover; 
             }
 
             h1 {
-                color: #1d7121; /* Same color as in your previous styles */
+                color: #1d7121; 
             }
 
             .card-body {
                 text-align: center;
-                border: none; /* Ensure card-body doesn't have borders */
+                border: none; 
             }
         </style>
 

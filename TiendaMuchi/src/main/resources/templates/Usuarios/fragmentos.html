@@ -35,9 +35,9 @@
                                             </div>
                                             <div class="col-lg-7">
                                                 <h1 th:text="${item.username}"></h1>
-                                                 <input type="checkbox" id="activo" name="activo" 
+                                                <input type="checkbox" id="activo" name="activo" 
                                                        th:checked="${item.activo}" disabled />
-                                                 <label for="activo" th:text="${item.activo ? 'Usuario activo' : 'Usuario inactivo'}"></label>
+                                                <label for="activo" th:text="${item.activo ? 'Usuario activo' : 'Usuario inactivo'}"></label>
                                             </div>
                                             <div class="col-lg-2">
                                                 <a th:href="@{/Usuarios/eliminar/{id}(id=${item.id})}" class="btn btn-danger">
@@ -88,10 +88,14 @@
                                     <label for="role">Rol</label>
                                     <select id="role" name="role" class="form-control" required>
                                         <option value="" disabled selected>Selecciona un rol</option>
-                                        <option value="cliente">cliente</option>
-                                        <option value="empleado">empleado</option>
+                                        <option value="cliente">Cliente</option>
+                                        <option value="empleado">Empleado</option>
                                         <option value="admin">Admin</option>
                                     </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="recibirNoticias">Deseo suscribirme a un boletín informativo, para recibir ofertas y noticias</label>
+                                    <input class="form-check-input" type="checkbox" name="recibirNoticias" id="activo" th:checked="${usuario.recibirNoticias}"/>
                                 </div>
                                 <div class="mb-3">
                                     <label for="activo">Activo</label>
@@ -145,23 +149,30 @@
                                                            name="password" th:field="*{password}"
                                                            required="true">
                                                 </div>
-                                                 <div class="mb-3">
+                                                <div class="mb-3">
                                                     <label for="mail">Email:</label>
-                                                    <input type="text" class="form-control" 
+                                                    <input type="email" class="form-control" 
                                                            name="mail" th:field="*{mail}"
                                                            required="true">
                                                 </div>
+                                                <select id="role" name="role" class="form-control" th:field="*{role}" required>
+                                                    <option value="" disabled selected>Selecciona un rol</option>
+                                                    <option value="cliente">Cliente</option>
+                                                    <option value="empleado">Empleado</option>
+                                                    <option value="admin">Admin</option>
+                                                </select>
                                                 <div class="mb-3">
-                                                    <label for="role">Rol</label>
-                                                    <input type="text" class="form-control" 
-                                                           name="mail" th:field="*{role}"
-                                                           required="true">
+
+                                                    <input type="checkbox" class="form-control-checkbox" 
+                                                           name="recibirNoticias" th:field="*{recibirNoticias}"
+                                                           >
+                                                        <label for="recibirNoticias">Deseo suscribirme a un boletín informativo, para recibir ofertas y noticias</label>
                                                 </div>
                                                 <div class="mb-3">
-                                                    <label for="activo">Activo</label>
+
                                                     <input type="checkbox" class="form-control-checkbox" 
-                                                           name="activo" th:field="*{activo}"
-                                                           required="true">
+                                                           name="activo" th:field="*{activo}">
+                                                        <label for="activo">Activo</label>
                                                 </div>
 
                                                 <div class="mt-5 mb-3 container">

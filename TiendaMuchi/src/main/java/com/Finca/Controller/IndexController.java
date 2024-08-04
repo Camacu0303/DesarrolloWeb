@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.Finca.Controller;
 
 import com.Finca.Domain.Categoria;
@@ -14,10 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-/**
- *
- * @author Campos
- */
+
 @Controller
 public class IndexController {
 
@@ -35,11 +29,14 @@ public class IndexController {
 
     @GetMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
-        //
         String referer = request.getHeader("Referer");
         model.addAttribute("message", "Ocurrió un error. Por favor, vuelve a intentarlo.");
         model.addAttribute("referer", referer);
         return "error";
     }
 
+    @GetMapping("/")
+    public String inicio(Model model) { 
+        return "index";
+    }
 }

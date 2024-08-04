@@ -76,7 +76,7 @@
                                 <div class="mb-3">
                                     <label for="categoria">Categoria</label>
                                     <select id="categoria" name="categoria" class="form-control" required>
-                                        <option value="" disabled selected>Select a category</option>
+                                        <option value="" disabled selected>Selecciona una categoría</option>
                                         <option th:each="categoria : ${Categorias}" 
                                                 th:value="${categoria.idCategoria}" 
                                                 th:text="${categoria.nombre}">

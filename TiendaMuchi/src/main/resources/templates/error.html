@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Error</title>
-</head>
-<body>
-    <h1 th:text="${message}">Error</h1>
-    <a th:href="@{${referer}}" th:if="${referer}">Volver a la página anterior</a>
-    <a href="/" th:if="${!referer}">Volver a la página principal</a>
-</body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>
+        <h1>Algo salió mal </h1>
+        <h2>Será arreglado en la próxima versión</h2>
+        <a href="/">Volver</a>
+        <p>Error: <span th:text="${status}"></span></p>
+        <p>Mensaje: <span th:text="${message}"></span></p>
+        <footer th:replace="~{layout/plantilla :: footer}"/>      
+    </body>
 </html>
