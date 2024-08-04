@@ -82,6 +82,7 @@ public class SubCategoriasController {
     public String categoriaModificar(Subcategoria subcategoria, Model model) {
         subcategoria = SubcategoriaService.getSubCategoria(subcategoria);
         model.addAttribute("SubCategoria", subcategoria);
+        model.addAttribute("Categorias", categoriaService.getCategorias(false));
         return "/SubCategorias/modifica";
     }
 

@@ -6,6 +6,7 @@ package com.Finca.Controller;
 
 import com.Finca.Domain.Categoria;
 import com.Finca.Service.CategoriaService;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,13 @@ public class IndexController {
         return "index";
     }
 
-    @GetMapping("/")
-    public RedirectView redirectToIndex() {
-        return new RedirectView("/index");
+    @GetMapping("/error")
+    public String handleError(HttpServletRequest request, Model model) {
+        //
+        String referer = request.getHeader("Referer");
+        model.addAttribute("message", "Ocurrió un error. Por favor, vuelve a intentarlo.");
+        model.addAttribute("referer", referer);
+        return "error";
     }
+
 }

@@ -20,7 +20,7 @@ import lombok.ToString;
 public class Subcategoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_subcategoria")
@@ -40,7 +40,6 @@ public class Subcategoria implements Serializable {
     private Categoria categoria;
 
     @OneToMany(mappedBy = "subcategoria", cascade = CascadeType.ALL)
-    
     private Set<Producto> productos;
 
     public Subcategoria() {
@@ -55,10 +54,12 @@ public class Subcategoria implements Serializable {
     public String toString() {
         return "Child{id=" + idSubcategoria + ", parentId=" + (categoria != null ? categoria.getIdCategoria() : null) + "}";
     }
+
     public void addProducto(Producto producto) {
         productos.add(producto);
         producto.setSubcategoria(this);
     }
+
     public void removeProducto(Subcategoria subcategoria) {
         productos.remove(subcategoria);
     }
