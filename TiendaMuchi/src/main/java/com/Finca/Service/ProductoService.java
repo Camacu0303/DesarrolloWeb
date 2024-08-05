@@ -12,4 +12,5 @@ public interface ProductoService {
     void save(Producto producto);
     public List<Producto> getProductoBySubCategoria(Subcategoria subcategoria);
     public void delete(Producto producto);
+    public List<Producto> searchByName(String nombre);
 }

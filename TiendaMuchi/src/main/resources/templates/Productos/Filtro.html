@@ -1,0 +1,93 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"> 
+    <head th:replace="~{layout/plantilla :: head}">
+        <title>TechShop</title>
+    </head>
+    <body>
+        <header th:replace="~{layout/plantilla :: header}"/>       
+        <div class="container mt-4">
+            <form th:action="@{/Productos/Filtro}" method="get" class="mb-10">
+                <input type="text" name="q" 
+                       th:value="${query}" 
+                       placeholder="Buscar productos" 
+                       style="border:2px solid #008532; border-radius: 5px; padding: 5px;" />
+                <button type="submit" class="search-button" 
+                        style="padding:10px; border:2px solid #008532; border-radius: 5px;">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form> 
+            <h1>Búsqueda para <span th:text="${query}"></span></h1>
+            <p th:if="${totalProductos == 0}">
+                Ningún producto cumple con el criterio de búsqueda<a th:href="@{/index}">Volver</a>
+            </p>
+            <div class="cont">
+                <div class="cont-body">
+                    <div class="subcategoria-container">
+                        <a th:each="item : ${productos}"
+                           th:href="@{/Productos/listadoIndividual/{id}(id=${item.idProducto})}" 
+                           class="subcategoria-card">
+                            <div class="subcategoria-image">
+                                <img th:src="@{${item.rutaImagen}}" alt="Imagen de Subcategoría" class="fixed-size-image"/>
+                            </div>
+                            <div class="subcategoria-content">
+                                <h5 class="mt-4" th:text="${item.nombre}"></h5>
+                                <h5 class="mt-5">Ver información</h5>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer th:replace="~{layout/plantilla :: footer}"/>  
+        <style>
+            .subcategoria-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 20px;
+            }
+
+            .subcategoria-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                text-decoration: none;
+                color: inherit;
+            }
+
+            .subcategoria-card:hover {
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            }
+
+            .fixed-size-image {
+                width: 100%;
+                height: auto;
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: cover;
+            }
+
+            h1 {
+                color: #1d7121;
+            }
+
+            .card-body {
+                text-align: center;
+                border: none;
+            }
+        </style>
+
+    </body>
+</html>
+<!--                        
+<a href="#" class="subcategoria-card">
+    <div class="subcategoria-image">
+        <img src="https://via.placeholder.com/200" alt="Placeholder Image" class="fixed-size-image"/>
+    </div>
+    <div class="subcategoria-content">
+        <h5>Placeholder de prueba</h5><h5>Ver información</h5>
+    </div>
+</a>
+<!-- Repeat ends --> 

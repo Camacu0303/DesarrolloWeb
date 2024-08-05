@@ -1,4 +1,3 @@
-
 package com.Finca.Controller;
 
 import com.Finca.Domain.Producto;
@@ -17,34 +16,33 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Controller
 @Slf4j
 public class ProductosController {
+
     @GetMapping("/Productos")
     public String Inicio(Model model) {
         model.addAttribute("Subcategorias", SubcategoriaService.getSubCategorias(false));
-        model.addAttribute("Categorias", CategoriaService.getCategorias(false));   
+        model.addAttribute("Categorias", CategoriaService.getCategorias(false));
         model.addAttribute("Producto", new Producto());
         model.addAttribute("Productos", productoService.getProductos(false));
         model.addAttribute("totalproductos", productoService.getProductos(false).size());
-        return "/Productos/listado"; 
+        return "/Productos/listado";
     }
-    
+
     @Autowired
     private SubCategoriaService SubcategoriaService;
-    
+
     @Autowired
     private CategoriaService CategoriaService;
 
     @Autowired
     private ProductoService productoService;
-    
+
     @Autowired
     private FirebaseStorageService firebaseStorageService;
 
-    @PostMapping
-    ("/Productos/Guardar")
+    @PostMapping("/Productos/Guardar")
     public String productoGuardar(Producto producto,
             @RequestParam("imagenFile") MultipartFile imagenFile) {
 
@@ -77,11 +75,22 @@ public class ProductosController {
         model.addAttribute("Subcategorias", SubcategoriaService.getSubCategorias(false));
         return "/Productos/modifica";
     }
+
     @GetMapping("/Productos/listadoIndividual/{idProducto}")
     public String listadoIndividual(Producto producto, Model model) {
-        
+
         var Producto = productoService.getProducto(producto);
         model.addAttribute("Producto", Producto);
         return "/Productos/listadoIndividual";
     }
+
+    @GetMapping("/Productos/Filtro")
+    public String search(@RequestParam(name = "q", required = false, defaultValue = "") String query, Model model) {
+        List<Producto> productos = productoService.searchByName(query);
+        model.addAttribute("productos", productos);
+        model.addAttribute("totalProductos", productos.size());
+        model.addAttribute("query", query);
+        return "Productos/Filtro"; // Assuming you have a Thymeleaf template named "Filtro.html" under "Productos" folder
+    }
+
 }

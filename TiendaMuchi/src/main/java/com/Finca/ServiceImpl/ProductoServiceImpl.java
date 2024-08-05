@@ -1,4 +1,3 @@
-
 package com.Finca.ServiceImpl;
 
 import com.Finca.Dao.ProductosDAO;
@@ -11,16 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
     @Autowired
     ProductosDAO productosDAO;
-    
+
     @Autowired
     private SubCategoriasDAO categoriaDao;
-    
+
     @Override
     public List<Producto> getProductos(boolean activos) {
         var lista = productosDAO.findAll();
@@ -37,7 +35,7 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public void save(Producto producto) {
-       productosDAO.save(producto);
+        productosDAO.save(producto);
     }
 
     @Override
@@ -50,5 +48,8 @@ public class ProductoServiceImpl implements ProductoService {
         productosDAO.delete(producto);
     }
 
-
+    @Override
+    public List<Producto> searchByName(String nombre) {
+        return productosDAO.findByNombreContainingIgnoreCase(nombre);
+    }
 }

@@ -6,15 +6,17 @@
     <body>     
         <header th:replace="~{layout/plantilla :: header}" />
         <div class="container mt-4">
-            <form action="#" class="mb-10">
-                <input type="text" name="Searched" value="" placeholder="Buscar productos" style="border:2px solid #008532;
-                       border-radius: 5px;
-                       padding: 5px;" />
-                <button type="submit" class="search-button" style="padding:10px; border:2px solid #008532;
-                       border-radius: 5px;">
+            <form th:action="@{/Productos/Filtro}" method="get" class="mb-10">
+                <input type="text" name="q" 
+                       th:value="${query}" 
+                       placeholder="Buscar productos" 
+                       style="border:2px solid #008532; border-radius: 5px; padding: 5px;" />
+                <button type="submit" class="search-button" 
+                        style="padding:10px; border:2px solid #008532; border-radius: 5px;">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
+
             <p th:if="${totalcategorias == 0}">
                 No hay categorías para mostrar
             </p>
@@ -24,7 +26,10 @@
                     <div class="cont">
                         <!-- Optional: <img th:src="@{${categoria.rutaImagen}}" class="card-img-top" alt="Imagen de Categoría"/> -->
                         <div class="cont-body">
-                            <div class="subcategoria-container scrollable-x">
+                            <div th:if="${#lists.isEmpty(categoria.subcategorias)}">
+                                <p style="text-align: left;">No hay subcategorías asociadas.</p>
+                            </div>
+                            <div th:unless="${#lists.isEmpty(categoria.subcategorias)}" class="subcategoria-container scrollable-x">
                                 <a th:each="subcategoria : ${categoria.subcategorias}"
                                    th:href="@{/SubCategorias/listadoIndividual/{id}(id=${subcategoria.idSubcategoria})}" 
                                    class="subcategoria-card">
@@ -40,6 +45,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
         <footer th:replace="~{layout/plantilla :: footer}" /> 
         <style>
@@ -49,7 +55,7 @@
                 align-items: flex-start;
                 overflow-x: auto;
                 white-space: nowrap;
-                overflow-y: hidden; 
+                overflow-y: hidden;
             }
 
             .subcategoria-cont {
@@ -57,17 +63,17 @@
 
             }
             .subcategoria-card {
-                margin-right: 30px; 
+                margin-right: 30px;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
             .subcategoria-card:hover {
-                transform: scale(1.05); 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
             .fixed-size-image {
                 width: 200px;
                 height: 200px;
-                object-fit: fill; 
+                object-fit: fill;
             }
             h3{
                 color: #1d7121;
