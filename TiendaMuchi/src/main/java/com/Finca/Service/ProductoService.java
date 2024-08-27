@@ -9,8 +9,9 @@ import java.util.List;
 public interface ProductoService {
     List<Producto> getProductos(boolean activos);
     Producto getProducto(Producto producto);
+    Producto getProductoById(Long idProducto); // Nuevo método para obtener por ID
     void save(Producto producto);
-    public List<Producto> getProductoBySubCategoria(Subcategoria subcategoria);
-    public void delete(Producto producto);
-    public List<Producto> searchByName(String nombre);
+    List<Producto> getProductoBySubCategoria(Subcategoria subcategoria);
+    void delete(Producto producto);
+    List<Producto> searchByName(String nombre);
 }

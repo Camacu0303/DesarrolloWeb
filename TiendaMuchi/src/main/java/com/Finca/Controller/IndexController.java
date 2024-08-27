@@ -35,7 +35,7 @@ public class IndexController {
         return "error";
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String inicio(Model model) { 
         return "index";
     }

@@ -34,6 +34,11 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
+    public Producto getProductoById(Long idProducto) {
+        return productosDAO.findById(idProducto).orElse(null);
+    }
+
+    @Override
     public void save(Producto producto) {
         productosDAO.save(producto);
     }

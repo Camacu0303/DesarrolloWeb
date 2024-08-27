@@ -13,33 +13,18 @@
                     <p th:text="${Producto.descripcion}"></p>
                     <p class="text-start ms-5">Precio: ₡ <span th:text="${Producto.precio}"></span></p>
                     <p class="text-start ms-5">Existencias: <span th:text="${Producto.existencias}"></span></p>
-                    <form
-                          action="#" 
-                          th:object="${Producto}"
-                          class="was-validated"                          
-                          enctype="multipart/form-data">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-lg-6">
 
-                                    <input type="hidden" name="id" th:field="*{idProducto}"/>
-                                    <button type="button" id="decrement-btn" style="height:100%;"> 
-                                        <i class="fa-solid fa-caret-left"></i>
-                                    </button>
-                                    <input type="number" min="1" id="quantity" name="Cantidad" value="1" class="hide-controllers" style="width: 25%; height:100%;"/>
-                                    <button type="button" id="increment-btn" style="height:100%;">
-                                        <i class="fa-solid fa-caret-right"></i>
-                                    </button>
-                                </div>
-                                <div class="col-lg-6">
-                                    <button type="submit" name="submit" class="btn btn-light" >
-                                        <i class="fas fa-cart-plus" style="color: #1d7121"></i><span class="class" style="color: #1d7121">Añadir al carrito</span>
-                                    </button>
+                    <!-- Formulario para agregar al carrito -->
+                    <a href="/carrito/agregar/${Producto.idProducto}" class="btn btn-primary">
+                        <i class="fas fa-cart-plus" style="color: #1d7121"></i>
+                        <span class="class" style="color: #1d7121">Añadir al carrito</span>
+                    </a>
+                
+                    
+                    <a th:href="@{/carrito/agregar/{idProducto}(idProducto=${producto.idProducto})}" class="btn btn-light">
+                        <i class="fas fa-cart-plus"></i>
+                    </a>
 
-                                </div>
-                            </div>
-                        </div>
-                    </form>
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {
                             const decrementBtn = document.getElementById('decrement-btn');
@@ -62,16 +47,14 @@
                     <style>
                         .hide-controllers {
                             appearance: none;
-                            -moz-appearance: textfield; 
+                            -moz-appearance: textfield;
                         }
 
-                        
                         .hide-controllers::-webkit-inner-spin-button,
                         .hide-controllers::-webkit-outer-spin-button {
                             -webkit-appearance: none;
                             margin: 0;
                         }
-
                     </style>
                 </div>
             </div>
@@ -81,7 +64,7 @@
             .subcategoria-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-                gap: 20px; 
+                gap: 20px;
             }
 
             .subcategoria-card {
@@ -90,32 +73,31 @@
                 align-items: center;
                 text-align: center;
                 transition: transform 0.3s ease, box-shadow 0.3s ease;
-                text-decoration: none; 
-                color: inherit; 
+                text-decoration: none;
+                color: inherit;
             }
 
             .subcategoria-card:hover {
-                transform: scale(1.05); 
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+                transform: scale(1.05);
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             }
 
             .fixed-size-image {
                 width: 100%;
                 height: auto;
-                max-width: 200px; 
-                max-height: 200px; 
-                object-fit: cover; 
+                max-width: 200px;
+                max-height: 200px;
+                object-fit: cover;
             }
 
             h1 {
-                color: #1d7121; 
+                color: #1d7121;
             }
 
             .card-body {
                 text-align: center;
-                border: none; 
+                border: none;
             }
         </style>
-
     </body>
 </html>
